@@ -32,44 +32,44 @@ class ViewController: UIViewController {
 //        print("\(foodChoices)")
         print("Hi")
     }
-    @IBAction func rightButtonClicked(_ sender: UIButton) {
-        let randFood = lastFoodRight.text!
-        if let index = foodChoices.index(of:randFood) {
-            foodChoices.remove(at: index)
-        foodCategoryHeight.constant = 48
-        rightButtonClicked.isHidden = true
-        lastFoodLeft.isHidden = true
-        lastFoodRight.isHidden = true
-        leftFoodPic.isHidden = true
-        rightFoodPic.isHidden = true
-        }
-        generateAnswer()
-    }
-    @IBAction func leftButtonClicked(_ sender: UIButton) {
-        let randFood = lastFoodLeft.text!
-        if let index = foodChoices.index(of:randFood) {
-            foodChoices.remove(at: index)
-        foodCategoryHeight.constant = 48
-        leftButtonClicked.isHidden = true
-        lastFoodRight.isHidden = true
-        lastFoodLeft.isHidden = true
-        rightFoodPic.isHidden = true
-        leftFoodPic.isHidden = true
-        }
-        generateAnswer()
-    }
+//    @IBAction func rightButtonClicked(_ sender: UIButton) {
+//        let randFood = lastFoodRight.text!
+//        if let index = foodChoices.index(of:randFood) {
+//            foodChoices.remove(at: index)
+//        foodCategoryHeight.constant = 48
+//        rightButtonClicked.isHidden = true
+//        lastFoodLeft.isHidden = true
+//        lastFoodRight.isHidden = true
+//        leftFoodPic.isHidden = true
+//        rightFoodPic.isHidden = true
+//        }
+//        generateAnswer()
+//    }
+//    @IBAction func leftButtonClicked(_ sender: UIButton) {
+//        let randFood = lastFoodLeft.text!
+//        if let index = foodChoices.index(of:randFood) {
+//            foodChoices.remove(at: index)
+//        foodCategoryHeight.constant = 48
+//        leftButtonClicked.isHidden = true
+//        lastFoodRight.isHidden = true
+//        lastFoodLeft.isHidden = true
+//        rightFoodPic.isHidden = true
+//        leftFoodPic.isHidden = true
+//        }
+//        generateAnswer()
+//    }
 
     @IBOutlet weak var resetChoices: UIBarButtonItem!
-    @IBOutlet weak var rightFoodPic: UIImageView!
-    @IBOutlet weak var leftFoodPic: UIImageView!
+//    @IBOutlet weak var rightFoodPic: UIImageView!
+//    @IBOutlet weak var leftFoodPic: UIImageView!
     @IBOutlet weak var foodPic: UIImageView!
-    @IBOutlet weak var rightButtonClicked: UIButton!
-    @IBOutlet weak var leftButtonClicked: UIButton!
-    @IBOutlet weak var rightButtonHeight: NSLayoutConstraint!
-    @IBOutlet weak var leftButtonHeight: NSLayoutConstraint!
+//    @IBOutlet weak var rightButtonClicked: UIButton!
+//    @IBOutlet weak var leftButtonClicked: UIButton!
+//    @IBOutlet weak var rightButtonHeight: NSLayoutConstraint!
+//    @IBOutlet weak var leftButtonHeight: NSLayoutConstraint!
     @IBOutlet weak var foodCategoryHeight: NSLayoutConstraint!
-    @IBOutlet weak var lastFoodRight: UITextField!
-    @IBOutlet weak var lastFoodLeft: UITextField!
+//    @IBOutlet weak var lastFoodRight: UITextField!
+//    @IBOutlet weak var lastFoodLeft: UITextField!
     @IBOutlet weak var foodCategory: UITextField!
     
     
@@ -79,7 +79,13 @@ class ViewController: UIViewController {
     var swipeLeft: UISwipeGestureRecognizer!
     var index = 0
     var didSwipe = false
-    var foodChoices = ["Chinese", "Mexican", "Italian", "Japanese", "Mediterranean", "French", "Thai", "Spanish", "Indian", "Greek", "BBQ", "Burgers", "Sandwich", "Seafood", "Pizza", "Steak"]
+    var foodChoices = ["Chinese", "Mexican", "Italian", "Japanese", "Mediterranean", "French", "Thai", "Spanish", "Indian", "Greek", "BBQ", "Burgers", "Sandwich", "Seafood", "Pizza", "Steak"]{
+        didSet{
+            if foodChoices.count == 2{
+                self.performSegue(withIdentifier: "finalChooser", sender: nil)
+            }
+        }
+    }
     var lastChoice: Choice?
     struct Choice {
         var operation: Operation
@@ -108,7 +114,7 @@ class ViewController: UIViewController {
 //        maxIndex = foodChoices.count
         
         //let foodCategoryChoice = foodCategory.text
-       foodCategoryHeight = 25
+       foodCategoryHeight.constant = 25
         
 //        self.foodPic.contentMode = .scaleAspectFill
 //        self.rightFoodPic.contentMode = .scaleAspectFill
@@ -210,36 +216,39 @@ class ViewController: UIViewController {
         //let maxIndex = foodChoices.count
         //let randomIndex = Int(arc4random_uniform(UInt32(maxIndex)))
         foodPic.isHidden = false
-        leftButtonClicked.isEnabled = false
-        rightButtonClicked.isEnabled = false
+        //leftButtonClicked.isEnabled = false
+        //rightButtonClicked.isEnabled = false
         if foodChoices.count == 2 {
+            
             //instructionLabel.isHidden = true
-            print("\(foodChoices)")
-            leftButtonClicked.isEnabled = true
-            rightButtonClicked.isEnabled = true
-            lastFoodRight.text = foodChoices[0]
-            lastFoodLeft.text = foodChoices[1]
-            foodCategoryHeight.constant = 0
-            rightButtonClicked.isHidden = false
-            leftButtonClicked.isHidden = false
+            print("One choice is: \(foodChoices[0])")
+            print("Another choice is: \(foodChoices[1])")
+//            leftButtonClicked.isEnabled = true
+//            rightButtonClicked.isEnabled = true
+//            lastFoodRight.text = foodChoices[0]
+//            lastFoodLeft.text = foodChoices[1]
+//            foodCategoryHeight.constant = 0
+//            rightButtonClicked.isHidden = false
+//            leftButtonClicked.isHidden = false
             //instructionLabel.isHidden = true
             self.view.removeGestureRecognizer(swipeDown)
             self.view.removeGestureRecognizer(swipeLeft)
             self.view.removeGestureRecognizer(swipeRight)
             foodPic.isHidden = true
-            rightFoodPic.image = UIImage(named: foodChoices[0])
-            
-            
-            leftFoodPic.image = UIImage(named: foodChoices[1])
+//            rightFoodPic.image = UIImage(named: foodChoices[0])
+//
+//
+//            leftFoodPic.image = UIImage(named: foodChoices[1])
           
             
         if foodChoices.count == 1 {
             print("\(foodChoices)")
-            lastFoodRight.text = foodChoices[0]
-            lastFoodLeft.text = foodChoices[1]
+//            lastFoodRight.text = foodChoices[0]
+//            lastFoodLeft.text = foodChoices[1]
+            foodCategory.text = foodChoices[0]
             foodCategoryHeight.constant = 98
-            rightButtonClicked.isEnabled = false
-            leftButtonClicked.isEnabled = false
+//            rightButtonClicked.isEnabled = false
+//            leftButtonClicked.isEnabled = false
             foodPic.isHidden = false
             //finalChoice.text = foodChoices[0]
             self.view.removeGestureRecognizer(swipeDown)
@@ -269,7 +278,25 @@ class ViewController: UIViewController {
 
     }
     
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let identifier = segue.identifier else { return }
+        switch identifier {
+        case "finalChooser":
+            let destination = segue.destination as! finalFoodChooserViewController
+            destination.foodArray = self.foodChoices
+        default:
+            print("that didn't work")
+        }
+        
+    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+//    {
+//        if segue.destination is finalFoodChooserViewController {
+//            let vc = segue.destination as? finalFoodChooserViewController
+//            vc?.lastFoodLeft.text = foodChoices[0]
+//            vc?.lastFoodRight.text = foodChoices[1]
+//        }
+//    }
 }
 
 
