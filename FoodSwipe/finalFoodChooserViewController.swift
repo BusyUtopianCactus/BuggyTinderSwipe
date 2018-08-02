@@ -10,6 +10,8 @@ import UIKit
 import SwiftyJSON
 import Alamofire
 import Canvas
+import MapKit
+import CoreLocation
 
 class finalFoodChooserViewController: UIViewController {
     
@@ -33,30 +35,32 @@ class finalFoodChooserViewController: UIViewController {
 //        print("Hi")
 //    }
     @IBAction func rightButtonClicked(_ sender: UIButton) {
-        let randFood = lastFoodRight.text!
-        if let index = foodChoices.index(of:randFood) {
-            foodChoices.remove(at: index)
-            foodCategoryHeight.constant = 48
-            rightButtonClicked.isHidden = true
-            lastFoodLeft.isHidden = true
-            lastFoodRight.isHidden = true
-            leftFoodPic.isHidden = true
-            rightFoodPic.isHidden = true
-        }
-        generateAnswer()
+//        let randFood = lastFoodRight.text!
+//        if let index = foodChoices.index(of:randFood) {
+//            foodChoices.remove(at: index)
+            //foodCategoryHeight.constant = 48
+//            rightButtonClicked.isHidden = true
+//            lastFoodLeft.isHidden = true
+//            lastFoodRight.isHidden = true
+//            leftFoodPic.isHidden = true
+//            rightFoodPic.isHidden = true
+            print("right button clicked")
+        //}
+        //generateAnswer()
     }
     @IBAction func leftButtonClicked(_ sender: UIButton) {
-        let randFood = lastFoodLeft.text!
-        if let index = foodChoices.index(of:randFood) {
-            foodChoices.remove(at: index)
-            foodCategoryHeight.constant = 48
-            leftButtonClicked.isHidden = true
-            lastFoodRight.isHidden = true
-            lastFoodLeft.isHidden = true
-            rightFoodPic.isHidden = true
-            leftFoodPic.isHidden = true
-        }
-        generateAnswer()
+//        let randFood = lastFoodLeft.text!
+//        if let index = foodChoices.index(of:randFood) {
+//            foodChoices.remove(at: index)
+            //foodCategoryHeight.constant = 48
+//            leftButtonClicked.isHidden = true
+//            lastFoodRight.isHidden = true
+//            lastFoodLeft.isHidden = true
+//            rightFoodPic.isHidden = true
+//            leftFoodPic.isHidden = true
+            print("left button clicked")
+        //}
+       // generateAnswer()
     }
     
 //    @IBOutlet weak var resetChoices: UIBarButtonItem!
@@ -65,12 +69,12 @@ class finalFoodChooserViewController: UIViewController {
     @IBOutlet weak var foodPic: UIImageView!
     @IBOutlet weak var rightButtonClicked: UIButton!
     @IBOutlet weak var leftButtonClicked: UIButton!
-    @IBOutlet weak var rightButtonHeight: NSLayoutConstraint!
-    @IBOutlet weak var leftButtonHeight: NSLayoutConstraint!
-    @IBOutlet weak var foodCategoryHeight: NSLayoutConstraint!
+    //@IBOutlet weak var rightButtonHeight: NSLayoutConstraint!
+    //@IBOutlet weak var leftButtonHeight: NSLayoutConstraint!
+    //@IBOutlet weak var foodCategoryHeight: NSLayoutConstraint!
     @IBOutlet weak var lastFoodRight: UITextField!
     @IBOutlet weak var lastFoodLeft: UITextField!
-    @IBOutlet weak var foodCategory: UITextField!
+    //@IBOutlet weak var foodCategory: UITextField!
     
     
     
@@ -108,6 +112,10 @@ class finalFoodChooserViewController: UIViewController {
         print (foodArray)
         leftFoodPic.image = UIImage(named: foodArray[0])
         rightFoodPic.image = UIImage(named: foodArray[1])
+        lastFoodLeft.text = foodArray[0]
+        lastFoodRight.text = foodArray[1]
+        view.bringSubview(toFront: rightButtonClicked)
+        view.bringSubview(toFront: leftButtonClicked)
         //        getMaxInd() // set the initial max index
         //        func getMaxIndex() {
         //        maxIndex = foodChoices.count
@@ -190,73 +198,73 @@ class finalFoodChooserViewController: UIViewController {
 //        // Increment the index Set the current index value
 //    }
     
-    func selectedChoices(arrayOfFood: [String]) {
-        var selectedFood = [String]()
-        
-        let randFood = foodCategory.text!
-        print("Right: \(randFood)")
-        
-        if !selectedFood.contains(randFood) {
-            selectedFood.append(randFood)
-        }
-        
-        print("Swiped right on Food Choices: \(foodChoices)")
-        print("Food Choices: \(foodChoices.count)")
-    }
-    func updateIndex() {
-        index += 1
-        if index >= foodChoices.count {
-            index = 0
-        }
-    }
+//    func selectedChoices(arrayOfFood: [String]) {
+//        var selectedFood = [String]()
+//
+//        let randFood = foodCategory.text!
+//        print("Right: \(randFood)")
+//
+//        if !selectedFood.contains(randFood) {
+//            selectedFood.append(randFood)
+//        }
+//
+//        print("Swiped right on Food Choices: \(foodChoices)")
+//        print("Food Choices: \(foodChoices.count)")
+//    }
+//    func updateIndex() {
+//        index += 1
+//        if index >= foodChoices.count {
+//            index = 0
+//        }
+//    }
     
     func generateAnswer() {
-        updateIndex()
+       // updateIndex()
         //let maxIndex = foodChoices.count
         //let randomIndex = Int(arc4random_uniform(UInt32(maxIndex)))
         //foodPic.isHidden = false
-        leftButtonClicked.isEnabled = false
-        rightButtonClicked.isEnabled = false
-        if foodChoices.count == 2 {
-            //instructionLabel.isHidden = true
-            
-            print("\(foodChoices)")
-            leftButtonClicked.isEnabled = true
-            rightButtonClicked.isEnabled = true
-            lastFoodRight.text = foodChoices[0]
-            print(foodChoices[0])
-            lastFoodLeft.text = foodChoices[1]
-            print(foodChoices[1])
-            //foodCategoryHeight.constant = 0
-            rightButtonClicked.isHidden = false
-            leftButtonClicked.isHidden = false
-            //instructionLabel.isHidden = true
-            self.view.removeGestureRecognizer(swipeDown)
-            self.view.removeGestureRecognizer(swipeLeft)
-            self.view.removeGestureRecognizer(swipeRight)
-            foodPic.isHidden = true
-            rightFoodPic.image = UIImage(named: foodChoices[0])
-            leftFoodPic.image = UIImage(named: foodChoices[1])
-            
-            
-            if foodChoices.count == 1 {
-                if (rightButtonClicked != nil) {
-                    performSegue(withIdentifier: "rightFoodChoice", sender: nil)
-                } else {
-                    performSegue(withIdentifier: "leftFoodChoice", sender: nil)
-                }
-                
-                print("\(foodChoices)")
-                lastFoodRight.text = foodChoices[0]
-                lastFoodLeft.text = foodChoices[1]
-                foodCategoryHeight.constant = 98
-                rightButtonClicked.isEnabled = false
-                leftButtonClicked.isEnabled = false
-                foodPic.isHidden = false
-                //finalChoice.text = foodChoices[0]
-                self.view.removeGestureRecognizer(swipeDown)
-                self.view.removeGestureRecognizer(swipeLeft)
-                self.view.removeGestureRecognizer(swipeRight)
+//        leftButtonClicked.isEnabled = false
+//        rightButtonClicked.isEnabled = false
+//        if foodChoices.count == 2 {
+//            //instructionLabel.isHidden = true
+//
+//            print("\(foodChoices)")
+//            leftButtonClicked.isEnabled = true
+//            rightButtonClicked.isEnabled = true
+//            lastFoodRight.text = foodChoices[0]
+//            print(foodChoices[0])
+//            lastFoodLeft.text = foodChoices[1]
+//            print(foodChoices[1])
+//            //foodCategoryHeight.constant = 0
+//            rightButtonClicked.isHidden = false
+//            leftButtonClicked.isHidden = false
+//            //instructionLabel.isHidden = true
+//            self.view.removeGestureRecognizer(swipeDown)
+//            self.view.removeGestureRecognizer(swipeLeft)
+//            self.view.removeGestureRecognizer(swipeRight)
+//            foodPic.isHidden = true
+//            rightFoodPic.image = UIImage(named: foodChoices[0])
+//            leftFoodPic.image = UIImage(named: foodChoices[1])
+//
+//
+//            if foodChoices.count == 1 {
+//                if (rightButtonClicked != nil) {
+//                    performSegue(withIdentifier: "rightFoodChoice", sender: nil)
+//                } else {
+//                    performSegue(withIdentifier: "leftFoodChoice", sender: nil)
+//                }
+//
+//                print("\(foodChoices)")
+//                lastFoodRight.text = foodChoices[0]
+//                lastFoodLeft.text = foodChoices[1]
+//                //foodCategoryHeight.constant = 98
+//                rightButtonClicked.isEnabled = false
+//                leftButtonClicked.isEnabled = false
+//                foodPic.isHidden = false
+//                //finalChoice.text = foodChoices[0]
+//                self.view.removeGestureRecognizer(swipeDown)
+//                self.view.removeGestureRecognizer(swipeLeft)
+//                self.view.removeGestureRecognizer(swipeRight)
                 //            let lat = Double(37.773972)
                 //            let long = Double(-122.431297)
                 //            let fileURL = "https://api.yelp.com/v3/businesses/search?term=\(foodChoices[0])food"
@@ -271,14 +279,14 @@ class finalFoodChooserViewController: UIViewController {
                 //                }
                 //            }
                 
-            }
-        }
-        
-        print("\(foodChoices.count)")
-        print("\(foodChoices)")
-        foodPic.image = UIImage(named: foodChoices[0])
-        foodCategory.text = foodChoices[0]
-        
+//            }
+//        }
+//
+//        print("\(foodChoices.count)")
+//        print("\(foodChoices)")
+//        foodPic.image = UIImage(named: foodChoices[0])
+//        //foodCategory.text = foodChoices[0]
+//
     }
     
     

@@ -114,7 +114,7 @@ class ViewController: UIViewController {
 //        maxIndex = foodChoices.count
         
         //let foodCategoryChoice = foodCategory.text
-       foodCategoryHeight.constant = 25
+       //foodCategoryHeight.constant = 25
         
 //        self.foodPic.contentMode = .scaleAspectFill
 //        self.rightFoodPic.contentMode = .scaleAspectFill
@@ -289,6 +289,7 @@ class ViewController: UIViewController {
         }
         
     }
+    
 //    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
 //    {
 //        if segue.destination is finalFoodChooserViewController {
