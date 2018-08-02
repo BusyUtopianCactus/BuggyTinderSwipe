@@ -25,6 +25,7 @@
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="10"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="animation" value="fadeIn"/>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Swipe To Choose Food Types" textAlignment="center" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RZi-jR-muZ">
@@ -94,20 +95,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Niq-hi-KaC">
-                                <rect key="frame" x="0.0" y="64" width="414" height="328"/>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <action selector="leftButtonClicked:" destination="Rgc-x8-vMv" eventType="touchUpInside" id="X4l-mf-kcA"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gbh-HP-NkS">
-                                <rect key="frame" x="0.0" y="408" width="414" height="328"/>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <action selector="rightButtonClicked:" destination="Rgc-x8-vMv" eventType="touchUpInside" id="zhX-ag-eah"/>
-                                </connections>
-                            </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="Ssn-qz-dc8">
                                 <rect key="frame" x="0.0" y="64" width="414" height="328"/>
                                 <subviews>
@@ -122,6 +109,12 @@
                                     </textField>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pTb-G5-gZB">
                                         <rect key="frame" x="0.0" y="46" width="414" height="282"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </imageView>
                                 </subviews>
                                 <constraints>
@@ -139,12 +132,32 @@
                                     </textField>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2pk-it-uLH">
                                         <rect key="frame" x="0.0" y="46" width="414" height="282"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </imageView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="2pk-it-uLH" firstAttribute="top" secondItem="3Hn-iB-2St" secondAttribute="bottom" constant="7" id="9ww-ed-sEe"/>
                                 </constraints>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Niq-hi-KaC">
+                                <rect key="frame" x="0.0" y="64" width="414" height="328"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="leftChoiceClicked:" destination="Rgc-x8-vMv" eventType="touchUpInside" id="JBm-gq-286"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gbh-HP-NkS">
+                                <rect key="frame" x="0.0" y="408" width="414" height="328"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="rightChoiceClicked:" destination="Rgc-x8-vMv" eventType="touchUpInside" id="Yo4-Pv-vfP"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>

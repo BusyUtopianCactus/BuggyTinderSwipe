@@ -34,8 +34,12 @@ class finalFoodChooserViewController: UIViewController {
 //        //        print("\(foodChoices)")
 //        print("Hi")
 //    }
-    @IBAction func rightButtonClicked(_ sender: UIButton) {
-//        let randFood = lastFoodRight.text!
+    
+    @IBAction func rightChoiceClicked(_ sender: Any) {
+        print("right button clicked")
+        
+    }
+    //        let randFood = lastFoodRight.text!
 //        if let index = foodChoices.index(of:randFood) {
 //            foodChoices.remove(at: index)
             //foodCategoryHeight.constant = 48
@@ -44,12 +48,15 @@ class finalFoodChooserViewController: UIViewController {
 //            lastFoodRight.isHidden = true
 //            leftFoodPic.isHidden = true
 //            rightFoodPic.isHidden = true
-            print("right button clicked")
+    
         //}
         //generateAnswer()
+    
+
+    @IBAction func leftChoiceClicked(_ sender: Any) {
+        print("left button clicked")
     }
-    @IBAction func leftButtonClicked(_ sender: UIButton) {
-//        let randFood = lastFoodLeft.text!
+    //        let randFood = lastFoodLeft.text!
 //        if let index = foodChoices.index(of:randFood) {
 //            foodChoices.remove(at: index)
             //foodCategoryHeight.constant = 48
@@ -58,10 +65,10 @@ class finalFoodChooserViewController: UIViewController {
 //            lastFoodLeft.isHidden = true
 //            rightFoodPic.isHidden = true
 //            leftFoodPic.isHidden = true
-            print("left button clicked")
+    
         //}
        // generateAnswer()
-    }
+    
     
 //    @IBOutlet weak var resetChoices: UIBarButtonItem!
     @IBOutlet weak var rightFoodPic: UIImageView!
@@ -114,8 +121,10 @@ class finalFoodChooserViewController: UIViewController {
         rightFoodPic.image = UIImage(named: foodArray[1])
         lastFoodLeft.text = foodArray[0]
         lastFoodRight.text = foodArray[1]
-        view.bringSubview(toFront: rightButtonClicked)
-        view.bringSubview(toFront: leftButtonClicked)
+        
+//        view.bringSubview(toFront: rightButtonClicked)
+//        view.bringSubview(toFront: leftButtonClicked)
+        
         //        getMaxInd() // set the initial max index
         //        func getMaxIndex() {
         //        maxIndex = foodChoices.count

@@ -10,7 +10,7 @@ import UIKit
 import SwiftyJSON
 import Alamofire
 import Canvas
-
+import Spring
 class ViewController: UIViewController {
 
 
@@ -109,7 +109,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        getMaxInd() // set the initial max index
+        
+        //getMaxInd() // set the initial max index
 //        func getMaxIndex() {
 //        maxIndex = foodChoices.count
         

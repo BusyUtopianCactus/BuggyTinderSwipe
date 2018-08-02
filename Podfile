@@ -9,4 +9,5 @@ target 'FoodSwipe' do
 pod 'Alamofire'
 pod 'SwiftyJSON'
 pod 'Canvas'
+pod 'Spring'
 end
