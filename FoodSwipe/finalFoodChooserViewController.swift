@@ -15,73 +15,51 @@ import CoreLocation
 
 class finalFoodChooserViewController: UIViewController {
     
-    
+    let locationManager = CLLocationManager()
     // MARK: Properties
     var deletedItem: String = ""
     
-    //    @IBOutlet var foodChooser: UISwipeGestureRecognizer!
-    
-    // MARK: Undo button
-//    @IBAction func restartChoiceClicked(_ sender: UIBarButtonItem) {
-//        foodChoices.insert(deletedItem, at: index)
-//        foodChoices.append(deletedItem)
-//        print("Undo pressed: \(deletedItem)")
-//        print(foodChoices)
-//        //        let deleteItem = foodChoices.remove(at: index)
-//        //        //foodChoices.remove(at: index)
-//        //        print("\(deleteItem)")
-//        //        foodChoices.append(deleteItem)
-//        //        print("\(foodChoices)")
-//        print("Hi")
-//    }
-    
     @IBAction func rightChoiceClicked(_ sender: Any) {
-        print("right button clicked")
+        
+        let latitude = ((self.locationManager.location?.coordinate.latitude)!)
+        let longitude = ((self.locationManager.location?.coordinate.longitude)!)
+        print(longitude)
+        print(latitude)
+        if (UIApplication.shared.canOpenURL(URL(string:"https://www.google.com/maps/search/")!)) {
+            UIApplication.shared.open(URL(string:
+                "comgooglemaps://?q=\(foodArray[1])&center=\(latitude),\(longitude)")!)
+                //"comgooglemaps://?q=\(foodArray[1])%20food&center=\(latitude),\(longitude)")!)
+        } else {
+            UIApplication.shared.open(URL(string:
+                "https://www.google.com/maps/search/?api=1&query=\(foodArray[1])&center=\(latitude),\(longitude)")!)
+        }
         
     }
-    //        let randFood = lastFoodRight.text!
-//        if let index = foodChoices.index(of:randFood) {
-//            foodChoices.remove(at: index)
-            //foodCategoryHeight.constant = 48
-//            rightButtonClicked.isHidden = true
-//            lastFoodLeft.isHidden = true
-//            lastFoodRight.isHidden = true
-//            leftFoodPic.isHidden = true
-//            rightFoodPic.isHidden = true
-    
-        //}
-        //generateAnswer()
-    
 
     @IBAction func leftChoiceClicked(_ sender: Any) {
-        print("left button clicked")
+        let latitude = ((self.locationManager.location?.coordinate.latitude)!)
+        let longitude = ((self.locationManager.location?.coordinate.longitude)!)
+        print(longitude)
+        print(latitude)
+        if (UIApplication.shared.canOpenURL(URL(string:"https://www.google.com/maps/search/")!)) {
+            UIApplication.shared.open(URL(string:
+                "comgooglemaps://?q=\(foodArray[0])&center=\(latitude),\(longitude)")!)
+            //"comgooglemaps://?q=\(foodArray[1])%20food&center=\(latitude),\(longitude)")!)
+        } else {
+            UIApplication.shared.open(URL(string:
+                "https://www.google.com/maps/search/?api=1&query=\(foodArray[0])&center=\(latitude),\(longitude)")!)
+        }
     }
-    //        let randFood = lastFoodLeft.text!
-//        if let index = foodChoices.index(of:randFood) {
-//            foodChoices.remove(at: index)
-            //foodCategoryHeight.constant = 48
-//            leftButtonClicked.isHidden = true
-//            lastFoodRight.isHidden = true
-//            lastFoodLeft.isHidden = true
-//            rightFoodPic.isHidden = true
-//            leftFoodPic.isHidden = true
-    
-        //}
-       // generateAnswer()
-    
-    
-//    @IBOutlet weak var resetChoices: UIBarButtonItem!
+  
     @IBOutlet weak var rightFoodPic: UIImageView!
     @IBOutlet weak var leftFoodPic: UIImageView!
-    @IBOutlet weak var foodPic: UIImageView!
+   // @IBOutlet weak var foodPic: UIImageView!
     @IBOutlet weak var rightButtonClicked: UIButton!
     @IBOutlet weak var leftButtonClicked: UIButton!
-    //@IBOutlet weak var rightButtonHeight: NSLayoutConstraint!
-    //@IBOutlet weak var leftButtonHeight: NSLayoutConstraint!
-    //@IBOutlet weak var foodCategoryHeight: NSLayoutConstraint!
+    
     @IBOutlet weak var lastFoodRight: UITextField!
     @IBOutlet weak var lastFoodLeft: UITextField!
-    //@IBOutlet weak var foodCategory: UITextField!
+ 
     
     
     
@@ -103,17 +81,6 @@ class finalFoodChooserViewController: UIViewController {
         case left
     }
     
-    //var maxIndex: Int = 0
-    //        let randomIndex = Int(arc4random_uniform(maxIndex))
-    //var currIndex = 0
-    //    if startingIndex == maxIndex {
-    //    startingIndex = 0
-    //    }
-    
-    //    func getMaxInd() {
-    //        maxIndex = foodChoices.count
-    //    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         print (foodArray)
@@ -121,6 +88,30 @@ class finalFoodChooserViewController: UIViewController {
         rightFoodPic.image = UIImage(named: foodArray[1])
         lastFoodLeft.text = foodArray[0]
         lastFoodRight.text = foodArray[1]
+        
+        locationManager.distanceFilter = kCLLocationAccuracyNearestTenMeters
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.startUpdatingLocation()
+        //locationManager.stopUpdatingLocation()
+        locationManager.requestAlwaysAuthorization()
+        
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        
+       
+        
+//        let latitude = self.locationManager.location?.coordinate.latitude
+//        let longitude = self.locationManager.location?.coordinate.longitude
+//        var self.lat = Double(latitude)
+//        var self.long = Double(longitude)
+        
+//        print(Double(latitude!))
+//        print(Double(longitude!))
+//        if (UIApplication.shared.canOpenURL(URL(string:"comgooglemaps://")!)) {
+//            UIApplication.shared.open(URL(string:
+//                "comgooglemaps://?q=japanese%20food&center=\(lat),\(long)")!)
+//        } else {
+//            print("Can't use comgooglemaps://");
+//        }
         
 //        view.bringSubview(toFront: rightButtonClicked)
 //        view.bringSubview(toFront: leftButtonClicked)

@@ -11,12 +11,13 @@ import SwiftyJSON
 import Alamofire
 import Canvas
 import Spring
+import CoreLocation
 class ViewController: UIViewController {
 
 
     // MARK: Properties
     var deletedItem: String = ""
-    
+    let locationManager = CLLocationManager()
 //    @IBOutlet var foodChooser: UISwipeGestureRecognizer!
     
     // MARK: Undo button
@@ -59,6 +60,7 @@ class ViewController: UIViewController {
 //        generateAnswer()
 //    }
 
+    @IBOutlet weak var directionsLabel: UILabel!
     @IBOutlet weak var resetChoices: UIBarButtonItem!
 //    @IBOutlet weak var rightFoodPic: UIImageView!
 //    @IBOutlet weak var leftFoodPic: UIImageView!
@@ -74,7 +76,7 @@ class ViewController: UIViewController {
     
     
     
-    var swipeDown: UISwipeGestureRecognizer!
+    var swipeUp: UISwipeGestureRecognizer!
     var swipeRight: UISwipeGestureRecognizer!
     var swipeLeft: UISwipeGestureRecognizer!
     var index = 0
@@ -109,7 +111,11 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        locationManager.distanceFilter = kCLLocationAccuracyNearestTenMeters
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.startUpdatingLocation()
+        //locationManager.stopUpdatingLocation()
+        locationManager.requestAlwaysAuthorization()
         //getMaxInd() // set the initial max index
 //        func getMaxIndex() {
 //        maxIndex = foodChoices.count
@@ -128,9 +134,14 @@ class ViewController: UIViewController {
         swipeLeft!.direction = .left
         self.view.addGestureRecognizer(swipeLeft!)
         
-        swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(ViewController.swipeToDown))
-        swipeDown!.direction = .down
-        self.view.addGestureRecognizer(swipeDown!)
+//        swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(ViewController.swipeToDown))
+//        swipeDown!.direction = .down
+//        self.view.addGestureRecognizer(swipeDown!)
+        
+        swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(ViewController.swipeToUp))
+        swipeUp!.direction = .up
+        self.view.addGestureRecognizer(swipeUp!)
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
     
@@ -138,25 +149,42 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    @objc func swipeToDown() {
+    @objc func swipeToUp() {
         if didSwipe == false {
             didSwipe = true
         }
-        index = foodChoices.count
-        self.view.removeGestureRecognizer(swipeLeft)
-        self.view.removeGestureRecognizer(swipeRight)
-        resetChoices.isEnabled = false
-        //instructionLabel.isHidden = true
-        updateIndex()
-        //FIXME: Print out the food that was swiped up on
-        print(foodChoices)
-        //currIndex += 1
+        let latitude = ((self.locationManager.location?.coordinate.latitude)!)
+        let longitude = ((self.locationManager.location?.coordinate.longitude)!)
+        print(longitude)
+        print(latitude)
+        if (UIApplication.shared.canOpenURL(URL(string:"https://www.google.com/maps/search/")!)) {
+            UIApplication.shared.open(URL(string:
+                "comgooglemaps://?q=\(foodChoices[1])&center=\(latitude),\(longitude)")!)
+            //"comgooglemaps://?q=\(foodArray[1])%20food&center=\(latitude),\(longitude)")!)
+        } else {
+            UIApplication.shared.open(URL(string:
+                "https://www.google.com/maps/search/?api=1&query=\(foodChoices[1])&center=\(latitude),\(longitude)")!)
+        }
+        
+        
+        
+        
+        //        index = foodChoices.count
+//        self.view.removeGestureRecognizer(swipeLeft)
+//        self.view.removeGestureRecognizer(swipeRight)
+//        resetChoices.isEnabled = false
+//        //instructionLabel.isHidden = true
+//        updateIndex()
+//        //FIXME: Print out the food that was swiped up on
+//        print(foodChoices)
+//        //currIndex += 1
     }
     
     @objc func swipedToRight() {
         if didSwipe == false {
             didSwipe = true
         }
+        directionsLabel.isHidden = true
         generateAnswer()
         // Increment the index
         lastChoice = Choice(operation:.right, value: nil)
@@ -164,6 +192,7 @@ class ViewController: UIViewController {
     }
     
     @objc func swipedToLeft() {
+        directionsLabel.isHidden = true
         if didSwipe == false {
             didSwipe = true
         } else {
@@ -232,7 +261,7 @@ class ViewController: UIViewController {
 //            rightButtonClicked.isHidden = false
 //            leftButtonClicked.isHidden = false
             //instructionLabel.isHidden = true
-            self.view.removeGestureRecognizer(swipeDown)
+            self.view.removeGestureRecognizer(swipeUp)
             self.view.removeGestureRecognizer(swipeLeft)
             self.view.removeGestureRecognizer(swipeRight)
             foodPic.isHidden = true
@@ -252,7 +281,7 @@ class ViewController: UIViewController {
 //            leftButtonClicked.isEnabled = false
             foodPic.isHidden = false
             //finalChoice.text = foodChoices[0]
-            self.view.removeGestureRecognizer(swipeDown)
+            self.view.removeGestureRecognizer(swipeUp)
             self.view.removeGestureRecognizer(swipeLeft)
             self.view.removeGestureRecognizer(swipeRight)
 //            let lat = Double(37.773972)
