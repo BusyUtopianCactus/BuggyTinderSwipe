@@ -10,4 +10,5 @@ pod 'Alamofire'
 pod 'SwiftyJSON'
 pod 'Canvas'
 pod 'Spring'
+pod 'SnapKit', '~> 4.0.0'
 end

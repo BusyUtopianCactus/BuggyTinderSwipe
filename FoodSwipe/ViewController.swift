@@ -12,6 +12,7 @@ import Alamofire
 import Canvas
 import Spring
 import CoreLocation
+import SnapKit
 class ViewController: UIViewController {
 
 
@@ -22,48 +23,19 @@ class ViewController: UIViewController {
     
     // MARK: Undo button
     @IBAction func restartChoiceClicked(_ sender: UIBarButtonItem) {
+        
         foodChoices.insert(deletedItem, at: index)
         foodChoices.append(deletedItem)
         print("Undo pressed: \(deletedItem)")
         print(foodChoices)
-//        let deleteItem = foodChoices.remove(at: index)
-//        //foodChoices.remove(at: index)
-//        print("\(deleteItem)")
-//        foodChoices.append(deleteItem)
-//        print("\(foodChoices)")
-        print("Hi")
+                print("Hi")
     }
-//    @IBAction func rightButtonClicked(_ sender: UIButton) {
-//        let randFood = lastFoodRight.text!
-//        if let index = foodChoices.index(of:randFood) {
-//            foodChoices.remove(at: index)
-//        foodCategoryHeight.constant = 48
-//        rightButtonClicked.isHidden = true
-//        lastFoodLeft.isHidden = true
-//        lastFoodRight.isHidden = true
-//        leftFoodPic.isHidden = true
-//        rightFoodPic.isHidden = true
-//        }
-//        generateAnswer()
-//    }
-//    @IBAction func leftButtonClicked(_ sender: UIButton) {
-//        let randFood = lastFoodLeft.text!
-//        if let index = foodChoices.index(of:randFood) {
-//            foodChoices.remove(at: index)
-//        foodCategoryHeight.constant = 48
-//        leftButtonClicked.isHidden = true
-//        lastFoodRight.isHidden = true
-//        lastFoodLeft.isHidden = true
-//        rightFoodPic.isHidden = true
-//        leftFoodPic.isHidden = true
-//        }
-//        generateAnswer()
-//    }
 
     @IBOutlet weak var directionsLabel: UILabel!
     @IBOutlet weak var resetChoices: UIBarButtonItem!
 //    @IBOutlet weak var rightFoodPic: UIImageView!
 //    @IBOutlet weak var leftFoodPic: UIImageView!
+    @IBOutlet weak var foodCounter: UILabel!
     @IBOutlet weak var foodPic: UIImageView!
 //    @IBOutlet weak var rightButtonClicked: UIButton!
 //    @IBOutlet weak var leftButtonClicked: UIButton!
@@ -75,7 +47,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var foodCategory: UITextField!
     
     
-    
+    var counterIndex = 0
     var swipeUp: UISwipeGestureRecognizer!
     var swipeRight: UISwipeGestureRecognizer!
     var swipeLeft: UISwipeGestureRecognizer!
@@ -108,13 +80,35 @@ class ViewController: UIViewController {
 //    func getMaxInd() {
 //        maxIndex = foodChoices.count
 //    }
-    
+//    var imageHeight = UIScreen.main.bounds.height*(450/736)
+//    var imageWidth = UIScreen.main.bounds.width*(312/414)
+//    var labelImageHeight = UIScreen.main.bounds.height*(50/736)
+//    var labelImageWidth = UIScreen.main.bounds.width*(340/414)
     override func viewDidLoad() {
         super.viewDidLoad()
+        resetChoices.isEnabled = false
+       
+        
+        //        if counterIndex == 0 {
+//            resetChoices.isEnabled = false
+//        }
+        
+        //        foodCategory.snp.makeConstraints { (make) -> Void in
+//            make.height.equalTo(labelImageHeight)
+//            make.height.equalTo(labelImageWidth)
+//        }
+//        foodPic.snp.makeConstraints { (make) -> Void in
+//            //UIScreen.main.bounds.(415/736)
+//            
+//            make.height.equalTo(imageHeight)
+//            make.width.equalTo(imageWidth)
+//            //(415/736)
+//            //make.center.equalTo(self.view)
+//        }
+        
         locationManager.distanceFilter = kCLLocationAccuracyNearestTenMeters
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.startUpdatingLocation()
-        //locationManager.stopUpdatingLocation()
         locationManager.requestAlwaysAuthorization()
         //getMaxInd() // set the initial max index
 //        func getMaxIndex() {
@@ -152,6 +146,7 @@ class ViewController: UIViewController {
     @objc func swipeToUp() {
         if didSwipe == false {
             didSwipe = true
+        
         }
         let latitude = ((self.locationManager.location?.coordinate.latitude)!)
         let longitude = ((self.locationManager.location?.coordinate.longitude)!)
@@ -159,11 +154,11 @@ class ViewController: UIViewController {
         print(latitude)
         if (UIApplication.shared.canOpenURL(URL(string:"https://www.google.com/maps/search/")!)) {
             UIApplication.shared.open(URL(string:
-                "comgooglemaps://?q=\(foodChoices[1])&center=\(latitude),\(longitude)")!)
+                "comgooglemaps://?q=\(foodChoices[index])&center=\(latitude),\(longitude)")!)
             //"comgooglemaps://?q=\(foodArray[1])%20food&center=\(latitude),\(longitude)")!)
         } else {
             UIApplication.shared.open(URL(string:
-                "https://www.google.com/maps/search/?api=1&query=\(foodChoices[1])&center=\(latitude),\(longitude)")!)
+                "https://www.google.com/maps/search/?api=1&query=\(foodChoices[index])&center=\(latitude),\(longitude)")!)
         }
         
         
@@ -184,15 +179,22 @@ class ViewController: UIViewController {
         if didSwipe == false {
             didSwipe = true
         }
-        directionsLabel.isHidden = true
+        //directionsLabel.isHidden = true
         generateAnswer()
         // Increment the index
         lastChoice = Choice(operation:.right, value: nil)
         //currIndex += 1
+        counterIndex += 1
+        if counterIndex >= 16 {
+            counterIndex = 0
+        }
+        resetChoices.isEnabled = false
+        foodCounter.text = String(("\(counterIndex)/16"))
+        print ("The amount of things swiped: \(foodCounter.text)")
     }
     
     @objc func swipedToLeft() {
-        directionsLabel.isHidden = true
+        //directionsLabel.isHidden = true
         if didSwipe == false {
             didSwipe = true
         } else {
@@ -203,12 +205,19 @@ class ViewController: UIViewController {
             //foodChoices.remove(at: index)
             print("DELETE ITEM: \(deleteItem)")
             self.deletedItem = deleteItem
+            resetChoices.isEnabled = true
             //foodChoices.append(deleteItem)
            // print("\(foodChoices)")
                                //at: (Int(foodChoices[0])))
         }
         
-        
+        counterIndex += 1
+        if counterIndex >= 16 {
+            counterIndex = 0
+        }
+        //FIXME:fix it
+        foodCounter.text = String(("\(counterIndex)/16"))
+        print ("The amount of things swiped: \(foodCounter.text)")
         print("Swiped Left on Food Choices: \(foodChoices)")
         
         // FIXME: get the index value and pass it in

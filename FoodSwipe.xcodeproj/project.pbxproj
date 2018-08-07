@@ -13,6 +13,7 @@
 		450B9CFB2107A01E008A9E96 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 450B9CF92107A01E008A9E96 /* Main.storyboard */; };
 		450B9CFD2107A020008A9E96 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 450B9CFC2107A020008A9E96 /* Assets.xcassets */; };
 		450B9D002107A020008A9E96 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 450B9CFE2107A020008A9E96 /* LaunchScreen.storyboard */; };
+		456D2E032118C33100D0A976 /* startScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456D2E022118C33100D0A976 /* startScreen.swift */; };
 		45FE32C82112543C00B6A1B1 /* finalFoodChooserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45FE32C72112543C00B6A1B1 /* finalFoodChooserViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -24,6 +25,7 @@
 		450B9CFC2107A020008A9E96 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		450B9CFF2107A020008A9E96 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		450B9D012107A020008A9E96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		456D2E022118C33100D0A976 /* startScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = startScreen.swift; sourceTree = "<group>"; };
 		45FE32C72112543C00B6A1B1 /* finalFoodChooserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = finalFoodChooserViewController.swift; sourceTree = "<group>"; };
 		4A1C6ADACC05AFE3EDB7505D /* Pods-FoodSwipe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodSwipe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FoodSwipe/Pods-FoodSwipe.debug.xcconfig"; sourceTree = "<group>"; };
 		6B1F0CFD658569541426B38F /* Pods_FoodSwipe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FoodSwipe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -74,6 +76,7 @@
 				450B9CF52107A01E008A9E96 /* AppDelegate.swift */,
 				450B9CF72107A01E008A9E96 /* ViewController.swift */,
 				45FE32C72112543C00B6A1B1 /* finalFoodChooserViewController.swift */,
+				456D2E022118C33100D0A976 /* startScreen.swift */,
 				450B9CF92107A01E008A9E96 /* Main.storyboard */,
 				450B9CFC2107A020008A9E96 /* Assets.xcassets */,
 				450B9CFE2107A020008A9E96 /* LaunchScreen.storyboard */,
@@ -169,6 +172,7 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-FoodSwipe/Pods-FoodSwipe-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Canvas/Canvas.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Spring/Spring.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
@@ -176,6 +180,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Canvas.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Spring.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
@@ -211,6 +216,7 @@
 			files = (
 				450B9CF82107A01E008A9E96 /* ViewController.swift in Sources */,
 				45FE32C82112543C00B6A1B1 /* finalFoodChooserViewController.swift in Sources */,
+				456D2E032118C33100D0A976 /* startScreen.swift in Sources */,
 				450B9CF62107A01E008A9E96 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
