@@ -144,11 +144,13 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/KKSwipeCards/KKSwipeCards.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/SPTinderView/SPTinderView.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Swipey/Swipey.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/KKSwipeCards/KKSwipeCards.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/SPTinderView/SPTinderView.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Swipey/Swipey.framework"
 fi

@@ -1,24 +1,28 @@
 PODS:
   - KKSwipeCards (0.1.1)
   - SnapKit (4.0.0)
+  - SPTinderView (0.5.1)
   - Swipey (0.11)
 
 DEPENDENCIES:
   - KKSwipeCards
   - SnapKit (~> 4.0.0)
+  - SPTinderView
   - Swipey
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - KKSwipeCards
     - SnapKit
+    - SPTinderView
     - Swipey
 
 SPEC CHECKSUMS:
   KKSwipeCards: 8f9808aee68bf433cd3b85066cbef45a6cd34693
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
+  SPTinderView: 16e7a70ff4b8e8480bb637e2d9534662c0088fa3
   Swipey: 8126291e580d33659ffeee8c7b3ec6073b5f6443
 
-PODFILE CHECKSUM: 914ed1e374e92116bd81da850376ce107b4a7673
+PODFILE CHECKSUM: 02d47d88ce14fe1cc4021520c703a1d8c3314b00
 
 COCOAPODS: 1.5.3

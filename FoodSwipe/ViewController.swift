@@ -33,11 +33,88 @@ class ViewController: UIViewController {
                 print("Hi")
     }
 
-    @IBAction func restartProgram(_ sender: UIBarButtonItem) {
+    @IBAction func leftButtonClicked(_ sender: UIButton) {
+        let deleteItem = foodChoices.remove(at: index)
+        //foodChoices.remove(at: index)
+        print("DELETE ITEM: \(deleteItem)")
+        self.deletedItem = deleteItem
+        resetChoices.isEnabled = true
+        //foodChoices.append(deleteItem)
+        // print("\(foodChoices)")
+        //at: (Int(foodChoices[0])))
+        //        }
+        //FIXME: fix this
+        if deniedCounterIndex + approvedCounterIndex < 16 {
+            deniedCounterIndex += 1
+        }
+        else {
+            deniedCounterIndex += 1
+            approvedCounterIndex -= 1
+        }
+        //        if approvedCounterIndex + deniedCounterIndex == 16 {
+        //                approvedCounterIndex - 1
+        //        } else {
+        //            approvedCounterIndex -= 1
+        //        }
+        
+        
+        
+        deniedFoodCounter.text = String(("Rejected: \(deniedCounterIndex)/16"))
+        foodCounter.text = String(("Maybe: \(approvedCounterIndex)/16"))
+        //        print ("The amount of things swiped: \(deniedFoodCounter.text)")
+        print("Swiped Left on Food Choices: \(foodChoices)")
+        
+        // FIXME: get the index value and pass it in
+        index -= 1
+        
+        generateAnswer()
+        
         
     }
     
-    @IBOutlet weak var restartSwipes: UIBarButtonItem!
+    @IBAction func rightButtonClicked(_ sender: UIButton) {
+        generateAnswer()
+        // Increment the index
+        lastChoice = Choice(operation:.right, value: nil)
+        //currIndex += 1
+        
+        //FIXME: fix this
+        if approvedCounterIndex + deniedCounterIndex < 16 {
+            approvedCounterIndex += 1
+        }
+        resetChoices.isEnabled = false
+        foodCounter.text = String(("Maybe: \(approvedCounterIndex)/16"))
+    }
+    
+    @IBAction func upButtonClicked(_ sender: UIButton) {
+        if CLLocationManager.locationServicesEnabled() {
+            print ("Its all on")
+        } else {
+            if let url = URL(string: "App-Prefs:root=Privacy&path=LOCATION") {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }
+        let latitude = ((self.locationManager.location?.coordinate.latitude))
+        let longitude = ((self.locationManager.location?.coordinate.longitude))
+////        print(longitude)
+////        print(latitude)
+//                if (UIApplication.shared.canOpenURL(URL(string:"https://www.google.com/maps/search/")!)) {
+//                    UIApplication.shared.open(URL(string:
+//                        "https://www.google.com/maps/search/?api=1&query=food%20\(foodChoices[index])&center=\(latitude),\(longitude)")!)
+//                    //"comgooglemaps://?q=\(foodArray[1])%20food&center=\(latitude),\(longitude)")!)
+//                } else {
+        
+        
+        let urlString = "http://maps.apple.com/?q=\(foodChoices[index])+food+nearby&near=\(latitude),\(longitude)"
+        if let url = URL(string: urlString) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            //}
+        }
+    }
+    
+    @IBOutlet weak var upButton: UIButton!
+    @IBOutlet weak var rightButton: UIButton!
+    @IBOutlet weak var leftButton: UIButton!
     @IBOutlet weak var resetChoices: UIBarButtonItem!
 //    @IBOutlet weak var rightFoodPic: UIImageView!
 //    @IBOutlet weak var leftFoodPic: UIImageView!
@@ -190,7 +267,7 @@ class ViewController: UIViewController {
 //            } else {
                 //if let location = placemarks?.first?.location {
                    // let query = "\(foodChoices[1])"
-                    let urlString = "http://maps.apple.com/?q=\(foodChoices[index])+food"
+                    let urlString = "http://maps.apple.com/?q=\(foodChoices[index])+food+nearby"
         //&sll=\(latitude),\(longitude)"
                     if let url = URL(string: urlString) {
                         UIApplication.shared.open(url, options: [:], completionHandler: nil)
@@ -215,6 +292,7 @@ class ViewController: UIViewController {
             didSwipe = true
         }
         //directionsLabel.isHidden = true
+    
         generateAnswer()
         // Increment the index
         lastChoice = Choice(operation:.right, value: nil)
@@ -363,6 +441,7 @@ class ViewController: UIViewController {
 
         print("\(foodChoices.count)")
         print("\(foodChoices)")
+        
         foodPic.image = UIImage(named: foodChoices[index])
         foodCategory.text = foodChoices[index]
 

@@ -31,7 +31,7 @@ class finalFoodChooserViewController: UIViewController {
 //        } else {
 //            UIApplication.shared.open(URL(string:
 //                "https://www.google.com/maps/search/?api=1&query=food%20\(foodArray[1])&center=\(latitude),\(longitude)")!)
-        let urlString = "http://maps.apple.com/?q=\(foodArray[1])+food"
+        let urlString = "http://maps.apple.com/?q=\(foodArray[1])+food+nearby"
         //&sll=\(latitude),\(longitude)"
         if let url = URL(string: urlString) {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
@@ -51,7 +51,7 @@ class finalFoodChooserViewController: UIViewController {
 //            UIApplication.shared.open(URL(string:
 //                "https://www.google.com/maps/search/?api=1&query=food%20\(foodArray[0])&center=\(latitude),\(longitude)")!)
 //        }
-        let urlString = "http://maps.apple.com/?q=\(foodArray[0])+food"
+        let urlString = "http://maps.apple.com/?q=\(foodArray[0])+food+nearby"
         //&sll=\(latitude),\(longitude)"
         if let url = URL(string: urlString) {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)

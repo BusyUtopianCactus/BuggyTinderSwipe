@@ -10,4 +10,5 @@ target 'FoodSwipe' do
 pod 'SnapKit', '~> 4.0.0'
 pod 'Swipey'
 pod 'KKSwipeCards'
+pod 'SPTinderView'
 end
