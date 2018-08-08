@@ -4,8 +4,7 @@
 //
 //  Created by Ilana Basman on 7/24/18.
 //  Copyright © 2018 MakeSchool. All rights reserved.
-//
-//var masterChoice = ["Chinese", "Mexican", "Italian", "Japanese", "Mediterranean", "French", "Thai", "Spanish", "Indian", "Greek", "BBQ", "Burgers", "Sandwich", "Seafood", "Pizza", "Steak"]
+
 import UIKit
 
 import CoreLocation
@@ -15,9 +14,11 @@ class ViewController: UIViewController {
 
 
     // MARK: Properties
+    var foodChoiceRestart = [String?]()
+    var deletedItemArray = [String]()
     var deletedItem: String = ""
     let locationManager = CLLocationManager()
-//    @IBOutlet var foodChooser: UISwipeGestureRecognizer!
+
     
     // MARK: Undo button
     @IBAction func restartChoiceClicked(_ sender: UIBarButtonItem) {
@@ -35,15 +36,11 @@ class ViewController: UIViewController {
 
     @IBAction func leftButtonClicked(_ sender: UIButton) {
         let deleteItem = foodChoices.remove(at: index)
-        //foodChoices.remove(at: index)
+        
         print("DELETE ITEM: \(deleteItem)")
         self.deletedItem = deleteItem
         resetChoices.isEnabled = true
-        //foodChoices.append(deleteItem)
-        // print("\(foodChoices)")
-        //at: (Int(foodChoices[0])))
-        //        }
-        //FIXME: fix this
+        
         if deniedCounterIndex + approvedCounterIndex < 16 {
             deniedCounterIndex += 1
         }
@@ -51,17 +48,10 @@ class ViewController: UIViewController {
             deniedCounterIndex += 1
             approvedCounterIndex -= 1
         }
-        //        if approvedCounterIndex + deniedCounterIndex == 16 {
-        //                approvedCounterIndex - 1
-        //        } else {
-        //            approvedCounterIndex -= 1
-        //        }
-        
-        
         
         deniedFoodCounter.text = String(("Rejected: \(deniedCounterIndex)/16"))
         foodCounter.text = String(("Maybe: \(approvedCounterIndex)/16"))
-        //        print ("The amount of things swiped: \(deniedFoodCounter.text)")
+        
         print("Swiped Left on Food Choices: \(foodChoices)")
         
         // FIXME: get the index value and pass it in
@@ -78,7 +68,6 @@ class ViewController: UIViewController {
         lastChoice = Choice(operation:.right, value: nil)
         //currIndex += 1
         
-        //FIXME: fix this
         if approvedCounterIndex + deniedCounterIndex < 16 {
             approvedCounterIndex += 1
         }
@@ -96,38 +85,29 @@ class ViewController: UIViewController {
         }
         let latitude = ((self.locationManager.location?.coordinate.latitude))
         let longitude = ((self.locationManager.location?.coordinate.longitude))
-////        print(longitude)
-////        print(latitude)
-//                if (UIApplication.shared.canOpenURL(URL(string:"https://www.google.com/maps/search/")!)) {
-//                    UIApplication.shared.open(URL(string:
-//                        "https://www.google.com/maps/search/?api=1&query=food%20\(foodChoices[index])&center=\(latitude),\(longitude)")!)
-//                    //"comgooglemaps://?q=\(foodArray[1])%20food&center=\(latitude),\(longitude)")!)
-//                } else {
+
         
         
-        let urlString = "http://maps.apple.com/?q=\(foodChoices[index])+food+nearby&near=\(latitude),\(longitude)"
+        let urlString = "http://maps.apple.com/?q=\(foodChoices[index])+food+nearby&near=\(String(describing: latitude)),\(String(describing: longitude))@z=10"
         if let url = URL(string: urlString) {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            //}
+            
         }
     }
     
+
+    @IBOutlet weak var restartWholeApp: UIBarButtonItem!
     @IBOutlet weak var upButton: UIButton!
     @IBOutlet weak var rightButton: UIButton!
     @IBOutlet weak var leftButton: UIButton!
     @IBOutlet weak var resetChoices: UIBarButtonItem!
-//    @IBOutlet weak var rightFoodPic: UIImageView!
-//    @IBOutlet weak var leftFoodPic: UIImageView!
+
     @IBOutlet weak var deniedFoodCounter: UILabel!
     @IBOutlet weak var foodCounter: UILabel!
     @IBOutlet weak var foodPic: UIImageView!
-//    @IBOutlet weak var rightButtonClicked: UIButton!
-//    @IBOutlet weak var leftButtonClicked: UIButton!
-//    @IBOutlet weak var rightButtonHeight: NSLayoutConstraint!
-//    @IBOutlet weak var leftButtonHeight: NSLayoutConstraint!
+
     @IBOutlet weak var foodCategoryHeight: NSLayoutConstraint!
-//    @IBOutlet weak var lastFoodRight: UITextField!
-//    @IBOutlet weak var lastFoodLeft: UITextField!
+
     @IBOutlet weak var foodCategory: UITextField!
     
     var approvedCounterIndex = 0
@@ -154,20 +134,7 @@ class ViewController: UIViewController {
         case left
     }
     
-    //var maxIndex: Int = 0
-    //        let randomIndex = Int(arc4random_uniform(maxIndex))
-    //var currIndex = 0
-//    if startingIndex == maxIndex {
-//    startingIndex = 0
-//    }
     
-//    func getMaxInd() {
-//        maxIndex = foodChoices.count
-//    }
-//    var imageHeight = UIScreen.main.bounds.height*(450/736)
-//    var imageWidth = UIScreen.main.bounds.width*(312/414)
-//    var labelImageHeight = UIScreen.main.bounds.height*(50/736)
-//    var labelImageWidth = UIScreen.main.bounds.width*(340/414)
     override func viewDidAppear(_ animated: Bool) {
         generateAnswer()
         foodCounter.text = String(("Maybe: 0/16"))
@@ -178,37 +145,13 @@ class ViewController: UIViewController {
         resetChoices.isEnabled = false
        
         
-        //        if counterIndex == 0 {
-//            resetChoices.isEnabled = false
-//        }
         
-        //        foodCategory.snp.makeConstraints { (make) -> Void in
-//            make.height.equalTo(labelImageHeight)
-//            make.height.equalTo(labelImageWidth)
-//        }
-//        foodPic.snp.makeConstraints { (make) -> Void in
-//            //UIScreen.main.bounds.(415/736)
-//            
-//            make.height.equalTo(imageHeight)
-//            make.width.equalTo(imageWidth)
-//            //(415/736)
-//            //make.center.equalTo(self.view)
-//        }
         
         locationManager.distanceFilter = kCLLocationAccuracyNearestTenMeters
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.startUpdatingLocation()
         locationManager.requestAlwaysAuthorization()
-        //getMaxInd() // set the initial max index
-//        func getMaxIndex() {
-//        maxIndex = foodChoices.count
         
-        //let foodCategoryChoice = foodCategory.text
-       //foodCategoryHeight.constant = 25
-        
-//        self.foodPic.contentMode = .scaleAspectFill
-//        self.rightFoodPic.contentMode = .scaleAspectFill
-//        self.leftFoodPic.contentMode = .scaleAspectFill
         swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(ViewController.swipedToRight))
         swipeRight!.direction = .right
         self.view.addGestureRecognizer(swipeRight!)
@@ -216,10 +159,6 @@ class ViewController: UIViewController {
         swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(ViewController.swipedToLeft))
         swipeLeft!.direction = .left
         self.view.addGestureRecognizer(swipeLeft!)
-        
-//        swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(ViewController.swipeToDown))
-//        swipeDown!.direction = .down
-//        self.view.addGestureRecognizer(swipeDown!)
         
         swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(ViewController.swipeToUp))
         swipeUp!.direction = .up
@@ -244,29 +183,7 @@ class ViewController: UIViewController {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }
         }
-        //let latitude = ((self.locationManager.location?.coordinate.latitude))
-       // let longitude = ((self.locationManager.location?.coordinate.longitude))
-        //print(longitude)
-        //print(latitude)
-//        if (UIApplication.shared.canOpenURL(URL(string:"https://www.google.com/maps/search/")!)) {
-//            UIApplication.shared.open(URL(string:
-//                "https://www.google.com/maps/search/?api=1&query=food%20\(foodChoices[index])&center=\(latitude),\(longitude)")!)
-//            //"comgooglemaps://?q=\(foodArray[1])%20food&center=\(latitude),\(longitude)")!)
-//        } else {
-//            UIApplication.shared.open(URL(string:
-//                "comgooglemaps://?q=food%20\(foodChoices[index])&center=\(latitude),\(longitude)")!)
-//        }
-//
-        //let geocoder = CLGeocoder()
         
-//        let locationString = String(foodChoices[1])
-//
-//        geocoder.geocodeAddressString(locationString) { (placemarks, error) in
-//            if let error = error {
-//                print(error.localizedDescription)
-//            } else {
-                //if let location = placemarks?.first?.location {
-                   // let query = "\(foodChoices[1])"
                     let urlString = "http://maps.apple.com/?q=\(foodChoices[index])+food+nearby"
         //&sll=\(latitude),\(longitude)"
                     if let url = URL(string: urlString) {
@@ -276,23 +193,13 @@ class ViewController: UIViewController {
             //}
         //}
         
-        //        index = foodChoices.count
-//        self.view.removeGestureRecognizer(swipeLeft)
-//        self.view.removeGestureRecognizer(swipeRight)
-//        resetChoices.isEnabled = false
-//        //instructionLabel.isHidden = true
-//        updateIndex()
-//        //FIXME: Print out the food that was swiped up on
-//        print(foodChoices)
-//        //currIndex += 1
     }
     
     @objc func swipedToRight() {
         if didSwipe == false {
             didSwipe = true
         }
-        //directionsLabel.isHidden = true
-    
+        
         generateAnswer()
         // Increment the index
         lastChoice = Choice(operation:.right, value: nil)
@@ -304,29 +211,29 @@ class ViewController: UIViewController {
         }
         resetChoices.isEnabled = false
         foodCounter.text = String(("Maybe: \(approvedCounterIndex)/16"))
-        //print ("The amount of things swiped: \(foodCounter.text)")
+        
     }
     
     
     
     @objc func swipedToLeft() {
-        //directionsLabel.isHidden = true
+        
         if didSwipe == false {
             didSwipe = true
         }
-//            else {
-            //let randFood = foodCategory.text!
-           // print("Left: \(randFood)")
-           
+        
             let deleteItem = foodChoices.remove(at: index)
+        
+        // Searchterms: how to search an array for an element swift
+        
+            // check if the deleted item is not in the array
+            // if not in array: then append
+            deletedItemArray.append(deleteItem)
             //foodChoices.remove(at: index)
             print("DELETE ITEM: \(deleteItem)")
             self.deletedItem = deleteItem
             resetChoices.isEnabled = true
-            //foodChoices.append(deleteItem)
-           // print("\(foodChoices)")
-                               //at: (Int(foodChoices[0])))
-//        }
+
         //FIXME: fix this
         if deniedCounterIndex + approvedCounterIndex < 16 {
             deniedCounterIndex += 1
@@ -335,17 +242,13 @@ class ViewController: UIViewController {
             deniedCounterIndex += 1
             approvedCounterIndex -= 1
         }
-//        if approvedCounterIndex + deniedCounterIndex == 16 {
-//                approvedCounterIndex - 1
-//        } else {
-//            approvedCounterIndex -= 1
-//        }
+
         
         
         
         deniedFoodCounter.text = String(("Rejected: \(deniedCounterIndex)/16"))
         foodCounter.text = String(("Maybe: \(approvedCounterIndex)/16"))
-//        print ("The amount of things swiped: \(deniedFoodCounter.text)")
+
         print("Swiped Left on Food Choices: \(foodChoices)")
         
         // FIXME: get the index value and pass it in
@@ -381,60 +284,31 @@ class ViewController: UIViewController {
     
     func generateAnswer() {
         updateIndex()
-        //let maxIndex = foodChoices.count
-        //let randomIndex = Int(arc4random_uniform(UInt32(maxIndex)))
+        
         foodPic.isHidden = false
-        //leftButtonClicked.isEnabled = false
-        //rightButtonClicked.isEnabled = false
+        
         if foodChoices.count == 2 {
             
             //instructionLabel.isHidden = true
             print("One choice is: \(foodChoices[0])")
             print("Another choice is: \(foodChoices[1])")
-//            leftButtonClicked.isEnabled = true
-//            rightButtonClicked.isEnabled = true
-//            lastFoodRight.text = foodChoices[0]
-//            lastFoodLeft.text = foodChoices[1]
-//            foodCategoryHeight.constant = 0
-//            rightButtonClicked.isHidden = false
-//            leftButtonClicked.isHidden = false
-            //instructionLabel.isHidden = true
+
             self.view.removeGestureRecognizer(swipeUp)
             self.view.removeGestureRecognizer(swipeLeft)
             self.view.removeGestureRecognizer(swipeRight)
             foodPic.isHidden = true
-//            rightFoodPic.image = UIImage(named: foodChoices[0])
-//
-//
-//            leftFoodPic.image = UIImage(named: foodChoices[1])
-          
             
         if foodChoices.count == 1 {
             print("\(foodChoices)")
-//            lastFoodRight.text = foodChoices[0]
-//            lastFoodLeft.text = foodChoices[1]
+
             foodCategory.text = foodChoices[0]
             foodCategoryHeight.constant = 98
-//            rightButtonClicked.isEnabled = false
-//            leftButtonClicked.isEnabled = false
+
             foodPic.isHidden = false
-            //finalChoice.text = foodChoices[0]
+            
             self.view.removeGestureRecognizer(swipeUp)
             self.view.removeGestureRecognizer(swipeLeft)
             self.view.removeGestureRecognizer(swipeRight)
-//            let lat = Double(37.773972)
-//            let long = Double(-122.431297)
-//            let fileURL = "https://api.yelp.com/v3/businesses/search?term=\(foodChoices[0])food"
-//            //&latitude=37.786882&longitude=-122.399972
-//            let parameters : Parameters = ["radius": "10000", "latitude": "\(lat)", "longitude": "\(long)"]
-//            let headers: [String : String] = ["Authorization": "Bearer mAly6n1Ufi8rlspSODzjdwUtMdADumgGWO1bhqaVozycE57NFz7q7-mKCnWkzaPMFSWR-Y3nUz-IoRwJ0HpefIYUEzu_mrIOmLus4E5agb4Jmj7NsXwuOD8mSGBfW3Yx"]
-//            Alamofire.request(fileURL, method: .get, parameters: parameters, headers: headers).responseJSON {
-//                response in
-//                if let receivedString = response.result.value {
-//                    print()
-//                    print("Here \(receivedString)")
-//                }
-//            }
             
             }
         }
@@ -459,14 +333,6 @@ class ViewController: UIViewController {
         
     }
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-//    {
-//        if segue.destination is finalFoodChooserViewController {
-//            let vc = segue.destination as? finalFoodChooserViewController
-//            vc?.lastFoodLeft.text = foodChoices[0]
-//            vc?.lastFoodRight.text = foodChoices[1]
-//        }
-//    }
 }
 
 
