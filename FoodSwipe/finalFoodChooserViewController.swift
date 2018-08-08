@@ -7,9 +7,8 @@
 //
 
 import UIKit
-import SwiftyJSON
-import Alamofire
-import Canvas
+
+
 import MapKit
 import CoreLocation
 
@@ -25,15 +24,18 @@ class finalFoodChooserViewController: UIViewController {
         let longitude = ((self.locationManager.location?.coordinate.longitude)!)
         print(longitude)
         print(latitude)
-        if (UIApplication.shared.canOpenURL(URL(string:"https://www.google.com/maps/search/")!)) {
-            UIApplication.shared.open(URL(string:
-                "comgooglemaps://?q=\(foodArray[1])&center=\(latitude),\(longitude)")!)
-                //"comgooglemaps://?q=\(foodArray[1])%20food&center=\(latitude),\(longitude)")!)
-        } else {
-            UIApplication.shared.open(URL(string:
-                "https://www.google.com/maps/search/?api=1&query=\(foodArray[1])&center=\(latitude),\(longitude)")!)
+//        if (UIApplication.shared.canOpenURL(URL(string:"https://www.google.com/maps/search/")!)) {
+//            UIApplication.shared.open(URL(string:
+//                "comgooglemaps://?q=food%20\(foodArray[1])&center=\(latitude),\(longitude)")!)
+//                //"comgooglemaps://?q=\(foodArray[1])%20food&center=\(latitude),\(longitude)")!)
+//        } else {
+//            UIApplication.shared.open(URL(string:
+//                "https://www.google.com/maps/search/?api=1&query=food%20\(foodArray[1])&center=\(latitude),\(longitude)")!)
+        let urlString = "http://maps.apple.com/?q=\(foodArray[1])+food"
+        //&sll=\(latitude),\(longitude)"
+        if let url = URL(string: urlString) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
-        
     }
 
     @IBAction func leftChoiceClicked(_ sender: Any) {
@@ -41,14 +43,19 @@ class finalFoodChooserViewController: UIViewController {
         let longitude = ((self.locationManager.location?.coordinate.longitude)!)
         print(longitude)
         print(latitude)
-        if (UIApplication.shared.canOpenURL(URL(string:"https://www.google.com/maps/search/")!)) {
-            UIApplication.shared.open(URL(string:
-                "comgooglemaps://?q=\(foodArray[0])&center=\(latitude),\(longitude)")!)
-            //"comgooglemaps://?q=\(foodArray[1])%20food&center=\(latitude),\(longitude)")!)
-        } else {
-            UIApplication.shared.open(URL(string:
-                "https://www.google.com/maps/search/?api=1&query=\(foodArray[0])&center=\(latitude),\(longitude)")!)
-        }
+//        if (UIApplication.shared.canOpenURL(URL(string:"https://www.google.com/maps/search/")!)) {
+//            UIApplication.shared.open(URL(string:
+//                "comgooglemaps://?q=food%20\(foodArray[0])&center=\(latitude),\(longitude)")!)
+//            //"comgooglemaps://?q=\(foodArray[1])%20food&center=\(latitude),\(longitude)")!)
+//        } else {
+//            UIApplication.shared.open(URL(string:
+//                "https://www.google.com/maps/search/?api=1&query=food%20\(foodArray[0])&center=\(latitude),\(longitude)")!)
+//        }
+        let urlString = "http://maps.apple.com/?q=\(foodArray[0])+food"
+        //&sll=\(latitude),\(longitude)"
+        if let url = URL(string: urlString) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
     }
   
     @IBOutlet weak var rightFoodPic: UIImageView!

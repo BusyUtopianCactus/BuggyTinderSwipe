@@ -6,9 +6,8 @@ target 'FoodSwipe' do
   use_frameworks!
 
   # Pods for FoodSwipe
-pod 'Alamofire'
-pod 'SwiftyJSON'
-pod 'Canvas'
-pod 'Spring'
+
 pod 'SnapKit', '~> 4.0.0'
+pod 'Swipey'
+pod 'KKSwipeCards'
 end

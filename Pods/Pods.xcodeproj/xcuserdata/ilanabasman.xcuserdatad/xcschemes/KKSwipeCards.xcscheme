@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "2EC64C5CB346C6CFDB5E78659ADA51A1"
-               BuildableName = "SnapKit.framework"
-               BlueprintName = "SnapKit"
+               BlueprintIdentifier = "544568EF4340EB065B8C9A5FB9135FC5"
+               BuildableName = "KKSwipeCards.framework"
+               BlueprintName = "KKSwipeCards"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "2EC64C5CB346C6CFDB5E78659ADA51A1"
-            BuildableName = "SnapKit.framework"
-            BlueprintName = "SnapKit"
+            BlueprintIdentifier = "544568EF4340EB065B8C9A5FB9135FC5"
+            BuildableName = "KKSwipeCards.framework"
+            BlueprintName = "KKSwipeCards"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
