@@ -407,10 +407,7 @@ class ViewController: UIViewController {
         foodCategory.text = foodChoices[index]
 
     }
-    func fullFoodChoices() {
-        
-        let foodChoices = ["Chinese", "Mexican", "Italian", "Japanese", "Mediterranean", "French", "Thai", "Spanish", "Indian", "Greek", "BBQ", "Burgers", "Sandwich", "Seafood", "Pizza", "Steak"]
-    }
+    
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let identifier = segue.identifier else { return }
